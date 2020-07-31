@@ -81,6 +81,7 @@ public class Cell extends JPanel implements Cloneable
     }
     public void setPossibleDestination()     //Function to highlight a cell to indicate that it is a possible valid move
     {
+        System.out.println("in");
             this.setBorder(BorderFactory.createLineBorder(Color.blue,4));
             this.isValidMove=true;
     }
@@ -104,18 +105,8 @@ public class Cell extends JPanel implements Cloneable
     }
     public void removePiece()
     {
-		if (piece instanceof King)
-		{
-			piece=null;
-			this.remove(content);
-		}
-		else
-		{
-
-                    piece=null;
-			this.remove(content);
-		}
-                this.repaint();
+        piece=null;
+        this.remove(content);
     }
 
     public void setCheck() 
@@ -131,6 +122,5 @@ public class Cell extends JPanel implements Cloneable
     void removeCheck() 
     {
         this.setBorder(null);
-        isCheck=false;
     }
 }

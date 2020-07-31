@@ -1,15 +1,17 @@
+import com.google.gson.Gson;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
 public class ChessBoard extends JFrame implements MouseListener
 {
-    static Cell [][] squares;
+    Cell [][] squares;
     Cell press, now_press;
     public JPanel panel;
     JLayeredPane layeredPane;
@@ -19,8 +21,8 @@ public class ChessBoard extends JFrame implements MouseListener
     ArrayList<Cell> possibleMoves = new ArrayList<Cell>();
     JTextField textField;
     boolean Game_Win = false;
-    static int turn = 0;
-    Game game;
+    int turn = 0;
+    private Gson gson;
     private JPanel wdetails=new JPanel(new GridLayout(3,3));
     private JPanel bdetails=new JPanel(new GridLayout(3,3));    
     private static Rook wr01,wr02,br01,br02;
@@ -29,52 +31,31 @@ public class ChessBoard extends JFrame implements MouseListener
     private static Pawn wp[],bp[];    
     private static Queen wq,bq;
     private static King wk,bk;
-    boolean isClient;
-    RW_Client client;
-    RW_Server server;
-    public ChessBoard(RW_Client client) throws NullPointerException, IOException 
-    {
-        this.client = client;
-        isClient = true;
-        board();
-    }
-    public ChessBoard(RW_Server server) throws NullPointerException, IOException 
-    {
-        this.server = server;
-        isClient = false;
-        board();
-    }
     public ChessBoard() throws NullPointerException, IOException 
     {
         board();
     }
-    
-    
     public void board() throws NullPointerException, IOException
     {
         panel = new JPanel(new GridLayout(9,9));
         textField = new JTextField("YOUR TURN...!", 150);
-        textField.setBounds(85, 590, 500, 60);
+        textField.setBounds(440, 670, 500, 60);
         textField.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 25));
         textField.setForeground(Color.RED);
         textField.setHorizontalAlignment(JTextField.CENTER);  // Text alignment
-//        textField.setToolTipText("YOUR TURN...!");
         textField.setEditable(false);
         textField.setBorder(null);
-        //panel.add(cp);
         this.add(textField);
-        //cp.add(textField);
-        //cp.add(textField);
-        //this.add(cp);
+        
+        
         bp = new Pawn[8];
         wp = new Pawn[8];
         squares =  new Cell[8][8];
-        panel.setBounds(100,1020,800,800);
-
 	panel.setBorder(BorderFactory.createLoweredBevelBorder());        
         content =  getContentPane();
         content.setBackground(Color.blue);
         content.setLayout(new BorderLayout());
+        gson = new Gson();
         
         /*Rook initialization*/
         wr01 = new Rook(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Rook.png","WR01");
@@ -107,7 +88,7 @@ public class ChessBoard extends JFrame implements MouseListener
         
         /*King initailization*/
         wk = new King(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_King.png","WK",7,3);
-        bk = new King(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_King.png","BK",0,6);
+        bk = new King(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_King.png","BK",0,3);
         Cell cell;
         for(int i=0; i<8; i++)
         {
@@ -115,25 +96,25 @@ public class ChessBoard extends JFrame implements MouseListener
             {
                 piece= null;
                 /*adding rook to board*/
-                //if(i==0 && j==0) piece = br01;
-                //if(i==0 && j==7) piece = br02;
-                if(i==3 && j==0) piece = wr01;
-                //if(i==7 && j==7) piece = wr02;                
+                if(i==0 && j==0) piece = br01;
+                if(i==0 && j==7) piece = br02;
+                if(i==7 && j==0) piece = wr01;
+                if(i==7 && j==7) piece = wr02;                
                 /*adding bishop to board*/
-                //if(i==0 && j==2) piece = bb01;
-                //if(i==0 && j==5) piece = bb02;
-                //if(i==7 && j==2) piece = wb01;
-                //if(i==7 && j==5) piece = wb02;
+                if(i==0 && j==2) piece = bb01;
+                if(i==0 && j==5) piece = bb02;
+                if(i==7 && j==2) piece = wb01;
+                if(i==7 && j==5) piece = wb02;
                 /*adding knight to board*/
-                //if(i==0 && j==1) piece = bk01;
-                //if(i==0 && j==6) piece = bk02;
-                //if(i==7 && j==1) piece = wk01;
-                //if(i==7 && j==6) piece = wk02;
+                if(i==0 && j==1) piece = bk01;
+                if(i==0 && j==6) piece = bk02;
+                if(i==7 && j==1) piece = wk01;
+                if(i==7 && j==6) piece = wk02;
                 /*adding queen to board*/
-                //if(i==0 && j==4) piece = bq;
-                //if(i==7 && j==4) piece = wq;                
+                if(i==0 && j==4) piece = bq;
+                if(i==7 && j==4) piece = wq;                
                 /*adding King to board*/
-                if(i==0 && j==6) piece = bk;
+                if(i==0 && j==3) piece = bk;
                 if(i==7 && j==3) piece = wk;                
                 if(i==1)
                 {
@@ -153,11 +134,19 @@ public class ChessBoard extends JFrame implements MouseListener
     }
     public ArrayList<Cell> filterPossibilities(ArrayList<Cell> possibleMoves, Cell press) throws NullPointerException, IOException, CloneNotSupportedException
     {
+        System.out.println("filtering ");
         ArrayList<Cell> newPossibilities = new ArrayList<Cell>();
         Cell[][] virtualBoard = new Cell[8][8];
         int x ,y;
         King king;
     	ListIterator<Cell> it = possibleMoves.listIterator();
+        for(int i=0;i<possibleMoves.size();i++)
+        {
+            System.out.println("current possible move are: ");
+            Cell temp = possibleMoves.get(i);
+            System.out.println(temp.x);
+            System.out.println(temp.y);
+        }
         while(it.hasNext())
         {
             for(int i=0;i<8;i++)
@@ -189,11 +178,18 @@ public class ChessBoard extends JFrame implements MouseListener
                 newPossibilities.add(cell);
             }
         }
+        for(int i=0;i<newPossibilities.size();i++)
+        {
+            System.out.println("possible move are: ");
+            Cell temp = newPossibilities.get(i);
+            System.out.println(temp.x);
+            System.out.println(temp.y);
+        }
         return newPossibilities;
     }
     public boolean willKingBeInDanger(Cell press, Cell cell) throws NullPointerException, IOException, CloneNotSupportedException
     {
-
+        System.out.println("will danger");
         ArrayList<Cell> newPossibilities = new ArrayList<Cell>();
         Cell[][] virtualBoard = new Cell[8][8];
         int x ,y;
@@ -223,6 +219,7 @@ public class ChessBoard extends JFrame implements MouseListener
             }
             else
             {
+                System.out.println("false return");
                 return false;
             }
     }
@@ -233,17 +230,8 @@ public class ChessBoard extends JFrame implements MouseListener
         Cell[][] virtualBoard = new Cell[8][8];
         int x ,y;
         King king;
-    	ListIterator<Cell> it = possibleMoves.listIterator();        
         
-        for(int i=0;i<possibleMoves.size();i++)
-            {
-                Cell temp = possibleMoves.get(i);
-                System.out.println("king for mate moves before checking");
-                System.out.println(temp.x);
-                System.out.println(temp.y);
-            }
-        
-        while (it.hasNext())
+        for(Cell cell:possibleMoves)
         {
             for(int i=0;i<8;i++)
             {
@@ -252,7 +240,6 @@ public class ChessBoard extends JFrame implements MouseListener
                     virtualBoard[i][j]=new Cell(squares[i][j]);
                 }
             }
-            Cell cell = it.next();
             if(virtualBoard[cell.x][cell.y].getPiece()!=null)
             {
                 virtualBoard[cell.x][cell.y].removePiece();
@@ -272,13 +259,6 @@ public class ChessBoard extends JFrame implements MouseListener
             if(((King)(virtualBoard[x][y]).getPiece()).isindanger(virtualBoard)==false)
             {
                 remainingPossibilities.add(cell);
-            }
-            for(int i=0;i<remainingPossibilities.size();i++)
-            {
-                Cell temp = remainingPossibilities.get(i);
-                System.out.println("king for mate moves");
-                System.out.println(temp.x);
-                System.out.println(temp.y);
             }
         }
         return remainingPossibilities;
@@ -324,8 +304,6 @@ public class ChessBoard extends JFrame implements MouseListener
                 try {
                     now_press=press;
                     press.piece_select();
-                    
-                    possibleMoves.clear();
                     possibleMoves = press.getPiece().move(squares,press.x,press.y);
                     if(press.getPiece() instanceof King)
                         possibleMoves = filterPossibilities(possibleMoves, press);
@@ -333,10 +311,12 @@ public class ChessBoard extends JFrame implements MouseListener
                     {
                         if(squares[getKing(turn).getX()][getKing(turn).getY()].isCheck()==true)
                         {
+                            System.out.println("hello king");
                             possibleMoves = new ArrayList<Cell>(filterPossibilities(possibleMoves, press));                                
                         }
                         else if(willKingBeInDanger(press, possibleMoves.get(0))==true && possibleMoves.isEmpty()==false)
                         {
+                            System.out.println("im in here to check will king be in danger?");
                             possibleMoves.clear();
                         }
                     }
@@ -403,7 +383,6 @@ public class ChessBoard extends JFrame implements MouseListener
                     }
                     unHighlightSelectedArea(possibleMoves);                    
                     possibleMoves.clear();
-                    repaint();
                     changeTurn();
                 }
             }
@@ -439,9 +418,6 @@ public class ChessBoard extends JFrame implements MouseListener
                             }
                             } catch (NullPointerException ex) { Logger.getLogger(ChessBoard.class.getName()).log(Level.SEVERE, null, ex);} catch (IOException ex) { Logger.getLogger(ChessBoard.class.getName()).log(Level.SEVERE, null, ex); } catch (CloneNotSupportedException ex) { Logger.getLogger(ChessBoard.class.getName()).log(Level.SEVERE, null, ex); }                        
                          highlightSelectedArea(possibleMoves);
-                         if(isClient) {
-                         
-                         }
                     }
                 }
             }
@@ -489,6 +465,18 @@ public class ChessBoard extends JFrame implements MouseListener
             return bk;
         }
     }
+    public static void main(String args[]) throws NullPointerException, IOException
+    {
+        ChessBoard test = new ChessBoard();
+//        test.setSize(700,700);
+        test.setResizable(false);
+        test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        test.setVisible(true);
+        test.setLocationRelativeTo(null);  
+        test.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+//        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//        test.setLocation(dim.width/2-test.getSize().width/2, dim.height/2-test.getSize().height/2);
+    }  
 
     @Override
     public void mouseReleased(MouseEvent e) {

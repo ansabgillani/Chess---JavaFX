@@ -84,6 +84,13 @@ public class Knight extends Piece
             else if(squares[x+1][y-2].getPiece()==null)
                 possibleMoves.add(squares[x+1][y-2]);
         }                
+        for(int i=0;i<possibleMoves.size();i++)
+        {
+            System.out.println(" move from function are: ");
+            Cell temp = possibleMoves.get(i);
+            System.out.println(temp.x);
+            System.out.println(temp.y);
+        }
         return possibleMoves;
     }
     

@@ -66,6 +66,8 @@ public class Bishop extends Piece
             possibleMoves.add(squares[i][j]);
             j--;i++;
         }
+        System.out.println("i = "+ i);
+        System.out.println("j = "+ j);        
         if((i<=7 && j>=0) && squares[i][j].getPiece()!=null && getColor()!=squares[i][j].getPiece().getColor())
         {
             possibleMoves.add(squares[i][j]);
