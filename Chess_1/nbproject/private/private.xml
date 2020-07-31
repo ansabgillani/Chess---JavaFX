@@ -3,22 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/RW_Client.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/UpdatePacket.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Piece.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Connection.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/ChessBoard.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Cell.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Game.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Client_Driver.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Knight.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Rook.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/RW_Server.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/King.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Bishop.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Pawn.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/Server_Driver.java</file>
-            <file>file:/E:/STUDY/5th%20Semester/Web%20Engineering/Web%20Project/Chess_1/src/ClientGame.java</file>
+            <file>file:/C:/Users/Ansab%20Gillani/Desktop/CHESS-master/Chess---JavaFX/Chess_1/src/Server_Driver.java</file>
+            <file>file:/C:/Users/Ansab%20Gillani/Desktop/CHESS-master/Chess---JavaFX/Chess_1/src/RW_Server.java</file>
         </group>
     </open-files>
 </project-private>
