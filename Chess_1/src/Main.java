@@ -82,20 +82,20 @@ public class Main extends JFrame {
         bcombopanel.setLayout(new FlowLayout());
         
         JButton white_name = new JButton("Enter White Player name");
-        white_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+        white_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
         white_name.setHorizontalAlignment(JTextField.CENTER);  // Text alignment
         white_name.addActionListener(new START());
         white_name.setBackground(Color.red);
         white_name.setForeground(Color.white);
-
+        white_name.setPreferredSize(new Dimension(230, 40));
 
         JButton black_name = new JButton("Enter Black Player name");
-        black_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
+        black_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
         black_name.setHorizontalAlignment(JTextField.CENTER);  // Text alignment
         black_name.setBackground(Color.blue);
         black_name.setForeground(Color.white);
         black_name.addActionListener(new START());
-
+        black_name.setPreferredSize(new Dimension(230, 40));
         wcombopanel.add(white_name);
 
         bcombopanel.add(black_name);
@@ -171,7 +171,7 @@ public class Main extends JFrame {
             else if (arg0.getActionCommand().equalsIgnoreCase("Enter White Player name")) 
             {
                 JPanel temp = new JPanel();
-                JPanel joint = BlackPlayer;
+                JPanel joint = WhitePlayer;
                 String name = JOptionPane.showInputDialog("Enter White Player's name");
                 if(name.length()!=0)
                 {
