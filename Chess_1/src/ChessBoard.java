@@ -58,37 +58,37 @@ public class ChessBoard extends JFrame implements MouseListener
         gson = new Gson();
         
         /*Rook initialization*/
-        wr01 = new Rook(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Rook.png","WR01");
-        wr02 = new Rook(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Rook.png","WR02");
-        br01 = new Rook(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Rook.png","BR01");        
-        br02 = new Rook(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Rook.png","BR01");        
+        wr01 = new Rook(0,"White_Rook.png","WR01");
+        wr02 = new Rook(0,"White_Rook.png","WR02");
+        br01 = new Rook(1,"Black_Rook.png","BR01");        
+        br02 = new Rook(1,"Black_Rook.png","BR01");        
 
         /*Bishop initialization*/        
-        wb01 = new Bishop(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Bishop.png","WB01");
-        wb02 = new Bishop(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Bishop.png","WB02");
-        bb01 = new Bishop(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Bishop.png","BB01");
-        bb02 = new Bishop(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Bishop.png","BB02");
+        wb01 = new Bishop(0,"White_Bishop.png","WB01");
+        wb02 = new Bishop(0,"White_Bishop.png","WB02");
+        bb01 = new Bishop(1,"Black_Bishop.png","BB01");
+        bb02 = new Bishop(1,"Black_Bishop.png","BB02");
 
         /*Knight initialization*/
-        wk01 = new Knight(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Knight.png","WK01");
-        wk02 = new Knight(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Knight.png","WK02");        
-        bk01 = new Knight(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Knight.png","BK01");
-        bk02 = new Knight(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Knight.png","BK02");
+        wk01 = new Knight(0,"White_Knight.png","WK01");
+        wk02 = new Knight(0,"White_Knight.png","WK02");        
+        bk01 = new Knight(1,"Black_Knight.png","BK01");
+        bk02 = new Knight(1,"Black_Knight.png","BK02");
         
         /*Queen initialization*/        
-        wq = new Queen(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Queen.png","WQ");
-        bq = new Queen(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Queen.png","BQ");
+        wq = new Queen(0,"White_Queen.png","WQ");
+        bq = new Queen(1,"Black_Queen.png","BQ");
         
         /*Pawn initialization*/        
         for(int i=0;i<8;i++)
         {
-            wp[i] = new Pawn(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_Pawn.png","WP0"+(i+1));
-            bp[i] = new Pawn(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_Pawn.png","BP0"+(i+1));
+            wp[i] = new Pawn(0,"White_Pawn.png","WP0"+(i+1));
+            bp[i] = new Pawn(1,"Black_Pawn.png","BP0"+(i+1));
         }
         
         /*King initailization*/
-        wk = new King(0,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\White_King.png","WK",7,3);
-        bk = new King(1,"E:\\STUDY\\5th Semester\\Web Engineering\\Web Project\\Chess\\src\\Black_King.png","BK",0,3);
+        wk = new King(0,"White_King.png","WK",7,3);
+        bk = new King(1,"Black_King.png","BK",0,3);
         Cell cell;
         for(int i=0; i<8; i++)
         {

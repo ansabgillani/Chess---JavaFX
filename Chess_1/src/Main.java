@@ -22,9 +22,9 @@ public class Main extends JFrame {
     private static final int Height = 500;
     private static final int Width = 1110;
 
-    private JPanel board = new JPanel(new GridLayout(8, 8));
-    private JPanel wdetails = new JPanel(new GridLayout(1, 3));
-    private JPanel bdetails = new JPanel(new GridLayout(1, 3));
+    private JPanel board = new JPanel(new GridLayout(8, 6));
+    private JPanel wdetails = new JPanel(new GridLayout(3, 1));
+    private JPanel bdetails = new JPanel(new GridLayout(3, 1));
     private JPanel wcombopanel = new JPanel();
     private JPanel bcombopanel = new JPanel();
 
@@ -36,7 +36,8 @@ public class Main extends JFrame {
     private String wname = null, bname = null;
     private BufferedImage image;
     private Button start;
-
+    private String whiteName="";
+    private String blackName="";    
     public static void main(String[] args) {
 
         Mainboard = new Main();
@@ -46,8 +47,8 @@ public class Main extends JFrame {
 
     //Constructor
     private Main() {
-        wdetails = new JPanel(new GridLayout(1, 3));
-        bdetails = new JPanel(new GridLayout(1, 3));
+        wdetails = new JPanel(new GridLayout(1, 1));
+        bdetails = new JPanel(new GridLayout(1, 1));
         bcombopanel = new JPanel();
         wcombopanel = new JPanel();
 
@@ -62,7 +63,7 @@ public class Main extends JFrame {
         controlPanel = new JPanel();
 
         content.setLayout(new BorderLayout());
-        controlPanel.setLayout(new GridLayout(3, 3));
+        controlPanel.setLayout(new GridLayout(3, 1));
         controlPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         //Defining the Player Box in Control Panel
@@ -79,27 +80,29 @@ public class Main extends JFrame {
 
         wcombopanel.setLayout(new FlowLayout());
         bcombopanel.setLayout(new FlowLayout());
-        JTextField white_name = new JTextField("Enter White Player name");
-        white_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
-        white_name.setForeground(Color.DARK_GRAY);
+        
+        JButton white_name = new JButton("Enter White Player name");
+        white_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
         white_name.setHorizontalAlignment(JTextField.CENTER);  // Text alignment
-        white_name.setEditable(false);
-        white_name.setBorder(null);
+        white_name.addActionListener(new START());
+        white_name.setBackground(Color.red);
+        white_name.setForeground(Color.white);
+        white_name.setPreferredSize(new Dimension(230, 40));
 
-        JTextField black_name = new JTextField("Enter Black Player name");
-        black_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 15));
-        black_name.setForeground(Color.DARK_GRAY);
+        JButton black_name = new JButton("Enter Black Player name");
+        black_name.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 13));
         black_name.setHorizontalAlignment(JTextField.CENTER);  // Text alignment
-        black_name.setEditable(false);
-        black_name.setBorder(null);
-
+        black_name.setBackground(Color.blue);
+        black_name.setForeground(Color.white);
+        black_name.addActionListener(new START());
+        black_name.setPreferredSize(new Dimension(230, 40));
         wcombopanel.add(white_name);
+
         bcombopanel.add(black_name);
 
         WhitePlayer.add(wcombopanel, BorderLayout.NORTH);
         BlackPlayer.add(bcombopanel, BorderLayout.NORTH);
         whitestats.add(new JLabel("Name   :"));
-
         blackstats.add(new JLabel("Name   :"));
 
         WhitePlayer.add(whitestats, BorderLayout.WEST);
@@ -113,8 +116,8 @@ public class Main extends JFrame {
         start.setBackground(Color.black);
         start.setForeground(Color.white);
         start.setPreferredSize(new Dimension(120, 40));
-         start.addActionListener(new START());
-        time = new JPanel(new GridLayout(3, 3));
+        start.addActionListener(new START());
+        time = new JPanel(new GridLayout(3, 1));
         time.add(showPlayer);
         time.add(start);
         controlPanel.add(time);
@@ -145,22 +148,57 @@ public class Main extends JFrame {
         @Override
         public void actionPerformed(ActionEvent arg0) {
 
-            System.out.println("in listner");
-            split.remove(temp);
-            ChessBoard test = null;
-            try {
-                test = new ChessBoard();
-            } catch (NullPointerException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            if (arg0.getActionCommand().equalsIgnoreCase("start")) 
+            {
+                if(whiteName!="" && blackName!="")
+                {
+                    split.remove(temp);
+                    ChessBoard test = null;
+                    try {
+                        test = new ChessBoard();
+                    } catch (NullPointerException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    test.setResizable(false);
+                    test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    test.setVisible(true);
+                    test.setLocationRelativeTo(null);
+                    test.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                }
+            } 
+            else if (arg0.getActionCommand().equalsIgnoreCase("Enter White Player name")) 
+            {
+                JPanel temp = new JPanel();
+                JPanel joint = WhitePlayer;
+                String name = JOptionPane.showInputDialog("Enter White Player's name");
+                if(name.length()!=0)
+                {
+                    whiteName=name;
+                    temp.removeAll();
+                    temp.add(new JLabel(" " + name));
+                    joint.revalidate();
+                    joint.repaint();
+                    joint.add(temp);                    
+                }            
             }
-            test.setResizable(false);
-            test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            test.setVisible(true);
-            test.setLocationRelativeTo(null);
-            test.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            else if (arg0.getActionCommand().equalsIgnoreCase("Enter Black Player name")) 
+            {
+                JPanel temp = new JPanel();
+                JPanel joint = BlackPlayer;
+                String name = JOptionPane.showInputDialog("Enter Black Player's name");
+                if(name.length()!=0)
+                {
+                    blackName=name;
+                    temp.removeAll();
+                    temp.add(new JLabel(" " + name));
+                    joint.revalidate();
+                    joint.repaint();
+                    joint.add(temp);                    
+                }
+
+            }
         }
     }
-
 }
